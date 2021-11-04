@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, SigninModel } from '../models/user';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SessionStore } from '../../state/auth-state/session-store';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,26 +17,28 @@ export class SignInComponent implements OnInit {
     password: new FormControl('', Validators.required),
     rememberMe: new FormControl(false),
   });
-  constructor(private router: Router, private signInService: SignInService) {}
+  constructor(
+    private router: Router,
+    private signInService: SignInService,
+    private sessionStore: SessionStore
+  ) {}
 
   ngOnInit(): void {}
 
   signIn() {
     console.log(this.signInForm.get('username'));
-    const signData :Auth = {
+    const signData: Auth = {
       username: this.signInForm.controls['username'].value,
       password: this.signInForm.controls['password'].value,
     };
     if (this.signInForm.valid) {
-      this.signInService.signIn(signData).subscribe(response=>{
-        // if pozitiv
-        // if negativ
-        if(this.signInForm.controls['rememberMe'].value){
-          localStorage.setItem("username",'username');
-
+      this.signInService.signIn(signData).subscribe((response) => {
+        if (this.signInForm.controls['rememberMe'].value) {
+          localStorage.setItem('username', 'username');
         }
+        this.sessionStore.update((state) => ({ user: response }));
         this.router.navigateByUrl('profile/items');
-      })
+      });
     }
   }
   forgotPassword() {}
@@ -43,7 +46,3 @@ export class SignInComponent implements OnInit {
     this.router.navigateByUrl('login/sign-up');
   }
 }
-// TODO: add remember me
-// TODO secure error feedback (backend API)
-// TODO reset password or recover username (sau poti si username si adresa de email)
-// TODO sign in = verb, sign-in = subs(pagina)

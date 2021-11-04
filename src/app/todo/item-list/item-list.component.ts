@@ -1,3 +1,4 @@
+import { SessionQuery } from '../../state/auth-state/session-query';
 import { Observable } from 'rxjs';
 import { ItemService } from './item.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -10,7 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./item-list.component.scss'],
 })
 export class ItemListComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private sessionQuery: SessionQuery) {
+    this.sessionQuery.currentUser$.subscribe(el=>{
+      console.log(el);
+    })
+  }
   @Input() items: Observable<Item[]> = new Observable();
   // save(){}
   changeDate() {

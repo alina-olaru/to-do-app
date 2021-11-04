@@ -9,8 +9,9 @@ export class SignInService {
 
   constructor() { }
   signIn(authData : Auth) : Observable<User>{
+
     return new Observable(ebs=>{
-      ebs.next();
+      ebs.next(new User());
     })
   }
 }

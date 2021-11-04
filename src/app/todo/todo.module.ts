@@ -8,7 +8,6 @@ import { ItemComponent } from './item/item.component';
 import { LevelOfImportancePipe } from './item/level-of-importance.pipe';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { RecurrencyPipe } from './item-detail/recurrency.pipe';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 
 const routes: Routes = [
@@ -42,6 +41,7 @@ const routes: Routes = [
   ],
   imports: [CommonModule, SharedModule, RouterModule.forChild(routes)],
   providers: [
+
 
   ],
 })
