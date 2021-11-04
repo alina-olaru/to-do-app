@@ -1,0 +1,6 @@
+@import "./coral-theme-variables";
+@use '~@angular/material' as mat;
+
+@include mat.core();
+@include mat.core-theme($coral-them);
+@include mat.all-component-themes($coral-them);

@@ -1,0 +1,19 @@
+.mat-card {
+  width: 600px;
+  height: 600px;
+  .mat-card-content {
+    width: 100%;
+    height: 490px;
+    &#read {
+      height: 430px;
+    }
+    div {
+      @apply mt-4;
+    }
+  }
+}
+::ng-deep .mat-card-title-group {
+  div {
+    @apply w-full;
+  }
+}

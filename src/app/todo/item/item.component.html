@@ -1,0 +1,13 @@
+
+<div class="flex content-center gap-7 items-center justify-between">
+<div>
+  <mat-checkbox [checked]="item?.isDone === TASK_STATE.DONE" (change)="updateState($event)" value="after">{{
+    item.title
+  }}</mat-checkbox>
+</div>
+
+<div class="flex gap-4">
+<mat-icon color="warn" class="pointer" (click)="removeItem()">delete</mat-icon>
+<mat-icon  class="pointer" (click)="toDetails()">info</mat-icon>
+</div>
+</div>

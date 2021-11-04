@@ -1,0 +1,29 @@
+<div class="flex h-full w-full justify-center items-center">
+  <mat-card>
+    <mat-card-title-group>
+      <mat-card-title class="w-full">
+        <div class="flex flex-row justify-between">
+          <div class="flex gap-4 justify-start items-center">TO DO</div>
+          <div (click)="changeDate()" class="flex justify-end content-center">
+            <mat-icon>schedule</mat-icon>
+          </div>
+        </div>
+      </mat-card-title>
+      <mat-card-subtitle> NUMBER </mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content>
+      <div class="p-8 flex flex-col gap-4 justify-center items-center">
+        <div *ngFor="let item of items | async" class="w-full">
+          <app-item [item]="item"></app-item>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="flex w-full justify-end add-button">
+        <button mat-fab color="warn" aria-label="Add a new Task">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

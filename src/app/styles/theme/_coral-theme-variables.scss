@@ -1,0 +1,81 @@
+@use "~@angular/material" as mat;
+
+@include mat.core();
+$pink-coral: #fc766aff;
+$blue-coral: #5b84b1ff;
+
+$mat-blue-coral: (
+  50: #f0f6ff,
+  100: #dae8ff,
+  200: #c2d8ff,
+  300: #a9c8ff,
+  400: #96bdff,
+  500: #84b1ff,
+  600: #7caaff,
+  700: #71a1ff,
+  800: #6798ff,
+  900: #5488ff,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #f9fbff,
+  A700: #e0e9ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+$mat-pink-coral: (
+  50: #f3e8ee,
+  100: #e2c7d5,
+  200: #cfa1b9,
+  300: #bc7b9d,
+  400: #ad5f88,
+  500: #9f4373,
+  600: #973d6b,
+  700: #8d3460,
+  800: #832c56,
+  900: #721e43,
+  A100: #ffafd0,
+  A200: #ff7cb2,
+  A400: #ff4995,
+  A700: #ff3086,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #ffffff,
+  ),
+);
+$coral-primary: mat.define-palette($mat-blue-coral, 700, 50, 900);
+$coral-accent: mat.define-palette($mat-pink-coral, 700, 50, 900);
+
+$coral-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $coral-primary,
+      accent: $coral-accent,
+    ),
+  )
+);

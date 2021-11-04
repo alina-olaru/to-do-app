@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./app/styles/global";
+// @import "./app/styles/theme/custom-theme.scss";
+
+ html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+ span,p, div
+ {
+   font-size: 18px;
+ }
+ button{
+  font-size:16px;
+ }
+
+.pointer{
+  cursor: pointer;
+}

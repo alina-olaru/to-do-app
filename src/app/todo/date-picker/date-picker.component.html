@@ -1,0 +1,40 @@
+
+<div class="flex h-full w-full justify-center items-center">
+  <mat-card>
+    <mat-card-title-group>
+      <mat-card-title>
+       CHANGE DATE
+
+
+
+      </mat-card-title>
+      <mat-card-subtitle>
+        NUMBER
+      </mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content >
+
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input  [formControl]="date"  matInput [matDatepicker]="datepicker">
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="flex w-full justify-end add-button">
+        <button >
+          <button mat-button (click)="saveChanges()">DONE</button>
+          <button mat-button (click)="cancel()">CANCEL</button>
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+  </div>
+

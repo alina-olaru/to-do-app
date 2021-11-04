@@ -1,0 +1,12 @@
+.mat-card {
+  width: 600px;
+  height: 600px;
+  .mat-card-content {
+    width: 100%;
+    height: 450px;
+
+    div {
+      @apply mt-4;
+    }
+  }
+}

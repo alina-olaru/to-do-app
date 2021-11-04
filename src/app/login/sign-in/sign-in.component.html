@@ -1,0 +1,109 @@
+<div class="w-full h-full flex items-center justify-center">
+  <form
+    class="
+      max-w-md
+      bg-white
+      shadow-md
+      rounded
+      px-8
+      pt-6
+      pb-8
+      mb-4
+      min-h-1/4 min-w-1/4
+    "
+    [formGroup]="signInForm"
+  >
+    <div class="mb-8">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        Username
+      </label>
+      <input
+        class="
+          shadow
+          appearance-none
+          border
+          rounded-2xl
+          w-full
+          py-2
+          px-3
+          text-gray-700
+          leading-tight
+          focus:outline-none focus:shadow-outline
+        "
+        id="username"
+        type="text"
+        placeholder="Username"
+        formControlName="username"
+      />
+    </div>
+    <div class="mb-6">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      <input
+        class="
+          shadow
+          appearance-none
+          border
+          rounded-2xl
+          w-full
+          py-2
+          px-3
+          text-gray-700
+          mb-3
+          leading-tight
+          focus:outline-none focus:shadow-outline
+        "
+        id="password"
+        type="password"
+        placeholder="******************"
+        formControlName="password"
+        autocomplete="on"
+      />
+      <mat-checkbox  formControlName="rememberMe" color="primary"
+        >Remember me</mat-checkbox
+      >
+    </div>
+    <div class="flex items-center justify-center">
+      <button
+        type="button"
+        class="
+          bg-purple-500
+          hover:bg-purple-700
+          text-white
+          font-bold
+          py-2
+          px-6
+          rounded-2xl
+          focus:outline-none focus:shadow-outline
+        "
+        [disabled]="!signInForm.valid"
+        (click)="signIn()"
+      >
+        Sign In
+      </button>
+    </div>
+    <div class="flex flex-col items-start justify-start">
+      <a
+        class="inline-block align-baseline text-sm text-grey-500 mt-4"
+        (click)="forgotPassword()"
+      >
+        Forgot Password?
+      </a>
+      <a
+        class="
+          inline-block
+          align-baseline
+          font-bold
+          text-sm text-purple-500
+          hover:text-purple-800
+          cursor-pointer
+        "
+        (click)="redirectToSignUp()"
+      >
+        Don't have an account? Create here!
+      </a>
+    </div>
+
+  </form>
+</div>
