@@ -16,7 +16,7 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Choose a date</mat-label>
-        <input  [formControl]="date"  matInput [matDatepicker]="datepicker">
+        <input  [formControl]="date"  matInput [matDatepicker]="datepicker" [min]="today">
         <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
         <mat-datepicker #datepicker>
           <mat-datepicker-actions>

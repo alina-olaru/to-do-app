@@ -11,8 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatInputModule} from '@angular/material/input';
-
+import { MatInputModule } from '@angular/material/input';
+import dayjs from 'dayjs';
 @NgModule({
   declarations: [],
   imports: [
@@ -27,6 +27,10 @@ import {MatInputModule} from '@angular/material/input';
           maxlength: ({ requiredLength, actualLength }) =>
             `Expect maximum ${requiredLength} characters, but got ${actualLength}.`,
           email: (error) => `Invalid email address.`,
+          matDatepickerMin: ({ actual, min }) => {
+            const day = dayjs(min).format('DD-MM-YYYY');
+            return `Choosen date should be at least ${day}`;
+          },
         },
       },
     }),
@@ -41,11 +45,6 @@ import {MatInputModule} from '@angular/material/input';
     ReactiveFormsModule,
     MatInputModule,
     MatNativeDateModule,
-
-
-
-
-
   ],
   exports: [
     CommonModule,
@@ -61,7 +60,6 @@ import {MatInputModule} from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
-
   ],
 })
 export class SharedModule {}
