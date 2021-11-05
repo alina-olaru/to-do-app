@@ -72,4 +72,9 @@ export class ItemService {
       obe.next(true);
     });
   }
+  addTask(task:Item): Observable<any>{
+    return new Observable(obe=>{
+      obe.next(true);
+    });
+  }
 }

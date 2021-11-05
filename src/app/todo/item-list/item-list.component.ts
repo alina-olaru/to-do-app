@@ -21,4 +21,7 @@ export class ItemListComponent {
   changeDate() {
     this.router.navigateByUrl('profile/date-picker');
   }
+  addItem(){
+    this.router.navigateByUrl('profile/add-item');
+  }
 }

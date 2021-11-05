@@ -1,168 +1,55 @@
 <div class="flex h-full w-full content-center justify-center items-center">
   <div class="flex w-100 content-center gap-7 justify-center items-center">
-    <mat-card *ngIf="currentMode === VIEW_MODE.READ" class="read-mode-card">
-      <mat-card-title-group>
-        <mat-card-title class="w-full">
-          <div class="flex flex-row justify-between">
-            <div class="flex gap-4 justify-start items-center">
-              {{ item.title | ucwords }}
-              <mat-icon
-                class="bg-green-500"
-                *ngIf="item.isDone === TASK_STATE.DONE"
-                >check</mat-icon
+    <div>
+      <mat-card *ngIf="currentMode === VIEW_MODE.READ" class="read-mode-card">
+        <mat-card-title-group>
+          <mat-card-title class="w-full">
+            <div class="flex flex-row justify-between">
+              <div class="flex gap-4 justify-start items-center">
+                {{ item.title | ucwords }}{{ currentMode }}
+                <mat-icon
+                  class="bg-green-500"
+                  *ngIf="item.isDone === TASK_STATE.DONE"
+                  >check</mat-icon
+                >
+                <mat-icon
+                  class="bg-red-500"
+                  *ngIf="item.isDone === TASK_STATE.NOT_DONE"
+                  >clear</mat-icon
+                >
+              </div>
+              <div
+                (click)="changeDate()"
+                class="flex justify-end content-center"
               >
-              <mat-icon
-                class="bg-red-500"
-                *ngIf="item.isDone === TASK_STATE.NOT_DONE"
-                >clear</mat-icon
-              >
+                <mat-icon>schedule</mat-icon>
+              </div>
             </div>
-            <div (click)="changeDate()" class="flex justify-end content-center">
-              <mat-icon>schedule</mat-icon>
-            </div>
-          </div>
-        </mat-card-title>
-        <mat-card-subtitle>{{
-          item.levelOfImportance | importance
-        }}</mat-card-subtitle>
-      </mat-card-title-group>
-      <mat-card-content id="read">
-        <p>{{ item.description }}</p>
-        <p>
-          {{ item.startDate | date: "M/d/yy, h:mm a" }} -
-          {{ item.endDate | date: "M/d/yy, h:mm a" }}
-        </p>
-        <p>{{ item.recurrency?.type | recurrency }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button (click)="toggleMode()" mat-button>EDIT</button>
-      </mat-card-actions>
-    </mat-card>
-    <mat-card *ngIf="currentMode === VIEW_MODE.EDIT" class="read-mode-card">
-      <mat-card-content>
-        <div [formGroup]="ItemForm">
-          <div class="mb-8">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="title"
-            >
-              Title
-            </label>
-            <input
-              class="
-                shadow
-                appearance-none
-                border
-                rounded-2xl
-                w-full
-                py-2
-                px-3
-                text-gray-700
-                leading-tight
-                focus:outline-none focus:shadow-outline
-              "
-              id="title"
-              type="text"
-              formControlName="title"
-            />
-          </div>
-          <div class="mb-8">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="description"
-            >
-              description
-            </label>
-            <input
-              class="
-                shadow
-                appearance-none
-                border
-                rounded-2xl
-                w-full
-                py-2
-                px-3
-                text-gray-700
-                leading-tight
-                focus:outline-none focus:shadow-outline
-              "
-              id="description"
-              type="text"
-              formControlName="description"
-            />
-          </div>
-
-          <div>
-            <mat-checkbox
-              formControlName="isDone"
-              (change)="updateStatus($event)"
-              value="after"
-            >
-              {{ updateStatusText }}
-            </mat-checkbox>
-          </div>
-          <div>
-            <mat-form-field appearance="fill">
-              <mat-label></mat-label>
-              <mat-date-range-input [rangePicker]="datePicker">
-                <input
-                  matStartDate
-                  placeholder="Start date"
-                  formControlName="startDate"
-                />
-                <input
-                  matEndDate
-                  placeholder="End date"
-                  formControlName="endDate"
-                />
-              </mat-date-range-input>
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="datePicker"
-              ></mat-datepicker-toggle>
-              <mat-date-range-picker #datePicker></mat-date-range-picker>
-            </mat-form-field>
-          </div>
-
-          <div class="flex justify-between">
-            <label>Recurency</label>
-            <mat-radio-group
-              aria-labelledby="recurency type"
-              formControlName="recurrency"
-              class="flex gap-4"
-            >
-              <mat-radio-button
-                [checked]="type.key == recurrency"
-                *ngFor="let type of recurrencyTypes"
-                [value]="type.key"
-              >
-                {{ type.title }}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
-
-          <div class="flex justify-between">
-            <label>Importance</label>
-            <mat-radio-group
-              aria-labelledby="importance type"
-              formControlName="levelOfImportance"
-              class="flex gap-4"
-            >
-              <mat-radio-button
-                [checked]="type.key == importance"
-                *ngFor="let type of importanceTypes"
-                [value]="type.key"
-              >
-                {{ type.title }}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button (click)="saveChanges()">DONE</button>
-        <button mat-button (click)="cancel()">CANCEL</button>
-      </mat-card-actions>
-    </mat-card>
+          </mat-card-title>
+          <mat-card-subtitle>{{
+            item.levelOfImportance | importance
+          }}</mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-content id="read">
+          <p>{{ item.description }}</p>
+          <p>
+            {{ item.startDate | date: "M/d/yy, h:mm a" }} -
+            {{ item.endDate | date: "M/d/yy, h:mm a" }}
+          </p>
+          <p>{{ item.recurrency?.type | recurrency }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button (click)="toggleMode(VIEW_MODE.READ)" mat-button>EDIT</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div *ngIf="currentMode === VIEW_MODE.EDIT">
+      <app-edit-item
+        [item]="item"
+        (currentMode)="toggleMode($event)"
+        (onCancel)="cancel()"
+        (onSave)="save($event)"
+      ></app-edit-item>
+    </div>
   </div>
 </div>

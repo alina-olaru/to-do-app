@@ -1,0 +1,126 @@
+<mat-card class="read-mode-card">
+  <mat-card-content>
+    <div [formGroup]="ItemForm">
+      <div class="mb-8">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="title"
+        >
+          Title
+        </label>
+        <input
+          class="
+            shadow
+            appearance-none
+            border
+            rounded-2xl
+            w-full
+            py-2
+            px-3
+            text-gray-700
+            leading-tight
+            focus:outline-none focus:shadow-outline
+          "
+          id="title"
+          type="text"
+          formControlName="title"
+        />
+      </div>
+      <div class="mb-8">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="description"
+        >
+          description
+        </label>
+        <input
+          class="
+            shadow
+            appearance-none
+            border
+            rounded-2xl
+            w-full
+            py-2
+            px-3
+            text-gray-700
+            leading-tight
+            focus:outline-none focus:shadow-outline
+          "
+          id="description"
+          type="text"
+          formControlName="description"
+        />
+      </div>
+
+      <div>
+        <mat-checkbox
+          formControlName="isDone"
+          (change)="updateStatus($event)"
+          value="after"
+        >
+          {{ updateStatusText }}
+        </mat-checkbox>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label></mat-label>
+          <mat-date-range-input [rangePicker]="datePicker">
+            <input
+              matStartDate
+              placeholder="Start date"
+              formControlName="startDate"
+            />
+            <input
+              matEndDate
+              placeholder="End date"
+              formControlName="endDate"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datePicker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #datePicker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+
+      <div class="flex justify-between">
+        <label>Recurency</label>
+        <mat-radio-group
+          aria-labelledby="recurency type"
+          formControlName="recurrency"
+          class="flex gap-4"
+        >
+          <mat-radio-button
+            [checked]="type.key == recurrency"
+            *ngFor="let type of recurrencyTypes"
+            [value]="type.key"
+          >
+            {{ type.title }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="flex justify-between">
+        <label>Importance</label>
+        <mat-radio-group
+          aria-labelledby="importance type"
+          formControlName="levelOfImportance"
+          class="flex gap-4"
+        >
+          <mat-radio-button
+            [checked]="type.key == importance"
+            *ngFor="let type of importanceTypes"
+            [value]="type.key"
+          >
+            {{ type.title }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="save()">DONE</button>
+    <button mat-button (click)="cancel()">CANCEL</button>
+  </mat-card-actions>
+</mat-card>
