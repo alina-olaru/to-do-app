@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EDIT_STATE } from './../state/todos.model';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,13 +13,14 @@ import {
 } from 'src/app/login/models/item';
 import { VIEW_MODE } from '../item-detail/item-detail.component';
 import { ItemService } from '../item-list/item.service';
+import { TodosStore } from '../state/todos.store';
 
 @Component({
   selector: 'app-edit-item',
   templateUrl: './edit-item.component.html',
   styleUrls: ['./edit-item.component.scss'],
 })
-export class EditItemComponent implements OnInit {
+export class EditItemComponent implements OnInit, OnDestroy {
   // communication with other components
   @Input() item: Item = new Item();
   @Output() currentMode = new EventEmitter();
@@ -26,7 +28,7 @@ export class EditItemComponent implements OnInit {
   @Output() onSave = new EventEmitter();
   // variables for logic
   ItemForm: any;
-
+  lastStateOfItemForm:any;
   // UI variables
   updateStatusText = '';
   importanceTypes = importanceTypes;
@@ -35,11 +37,27 @@ export class EditItemComponent implements OnInit {
   constructor(
     private itemService: ItemService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private todosStore: TodosStore
   ) {}
+  ngOnDestroy(): void {
+    this.todosStore.updateEditingState(EDIT_STATE.NOT_EDITING);
+  }
 
   ngOnInit(): void {
+
+
     this.initializeForm();
+    this.ItemForm.valueChanges.subscribe((el: any)=>{
+      console.log(el);
+    console.log( JSON.stringify(el)==JSON.stringify(this.lastStateOfItemForm.value));
+    if(JSON.stringify(el)==JSON.stringify(this.lastStateOfItemForm.value)){
+      this.todosStore.updateEditingState(EDIT_STATE.NOT_EDITING);
+    }
+    else{
+      this.todosStore.updateEditingState(EDIT_STATE.EDITING);
+    }
+    })
     if (this.item?.id) {
       this.updateStatusText =
         this.item.isDone === TASK_STATE.DONE
@@ -59,6 +77,16 @@ export class EditItemComponent implements OnInit {
       recurrency: new FormControl(this.item.recurrency?.type),
       levelOfImportance: new FormControl(this.item.levelOfImportance),
     });
+    this.lastStateOfItemForm = new FormGroup<ControlsOf<ItemModel>>({
+      description: new FormControl(this.item.description),
+      title: new FormControl(this.item.title),
+      isDone: new FormControl(this.item.isDone),
+      startDate: new FormControl(new Date(this.item.startDate)),
+      endDate: new FormControl(new Date(this.item.endDate)),
+      recurrency: new FormControl(this.item.recurrency?.type),
+      levelOfImportance: new FormControl(this.item.levelOfImportance),
+    });
+
   }
 
   // output emiters
@@ -67,6 +95,7 @@ export class EditItemComponent implements OnInit {
   }
   save() {
     this.onSave.emit(this.ItemForm);
+
   }
   //UI helpers
 

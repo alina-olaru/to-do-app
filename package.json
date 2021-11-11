@@ -39,6 +39,7 @@
     "postcss-nesting": "^9.0.0",
     "rxjs": "~6.6.0",
     "sass": "^1.43.4",
+    "sweetalert2": "^11.1.10",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

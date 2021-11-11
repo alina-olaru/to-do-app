@@ -11,6 +11,8 @@ import {
 } from 'src/app/login/models/item';
 import { ItemService } from '../item-list/item.service';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { TodosStore } from '../state/todos.store';
+import { EDIT_STATE } from '../state/todos.model';
 
 export enum VIEW_MODE {
   EDIT,
@@ -30,7 +32,8 @@ export class ItemDetailComponent implements OnInit {
   constructor(
     private itemService: ItemService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private todosStore:TodosStore
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +54,7 @@ export class ItemDetailComponent implements OnInit {
     //TODO send item mapped from formg
     this.itemService.updateTask(this.item).subscribe((response) => {
       this.toggleMode(this.currentMode);
+      this.todosStore.updateEditingState(EDIT_STATE.NOT_EDITING);
     });
   }
   // UI helpers

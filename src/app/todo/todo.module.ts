@@ -11,6 +11,7 @@ import { RecurrencyPipe } from './item-detail/recurrency.pipe';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { AddItemComponent } from './add-item/add-item.component';
+import { EditModeGuard } from '../guards/edit-mode-guard.service';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
   {
     path: 'item/:id',
     component: ItemDetailComponent,
+    canDeactivate:[EditModeGuard]
   },
   {
     path: '',
