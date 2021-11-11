@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Auth, User } from '../models/user';
+import { Auth, RoleEnum, User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,11 @@ export class SignInService {
 
   constructor() { }
   signIn(authData : Auth) : Observable<User>{
-
+const x = new User();
+x.token="4";
+x.roles = [RoleEnum.BASIC_USER]
     return new Observable(ebs=>{
-      ebs.next(new User());
+      ebs.next(x);
     })
   }
 }

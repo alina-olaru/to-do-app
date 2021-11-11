@@ -1,3 +1,4 @@
+import { SessionQuery } from './../../state/auth-state/session-query';
 import { SignInService } from './sign-in.service';
 import { ControlsOf, FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { Component, OnInit } from '@angular/core';
@@ -20,10 +21,15 @@ export class SignInComponent implements OnInit {
   constructor(
     private router: Router,
     private signInService: SignInService,
-    private sessionStore: SessionStore
+    private sessionStore: SessionStore,
+    private sessionQuery: SessionQuery
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.sessionQuery.getValue()?.user.token) {
+      this.router.navigateByUrl('profile/items');
+    }
+  }
 
   signIn() {
     console.log(this.signInForm.get('username'));
@@ -33,9 +39,9 @@ export class SignInComponent implements OnInit {
     };
     if (this.signInForm.valid) {
       this.signInService.signIn(signData).subscribe((response) => {
-        if (this.signInForm.controls['rememberMe'].value) {
-          localStorage.setItem('username', 'username');
-        }
+        // if (this.signInForm.controls['rememberMe'].value) {
+        //   localStorage.setItem('user', JSON.stringify(response));
+        // }
         this.sessionStore.update((state) => ({ user: response }));
         this.router.navigateByUrl('profile/items');
       });

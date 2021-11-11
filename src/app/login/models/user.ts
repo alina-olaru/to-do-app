@@ -5,11 +5,16 @@ export class User {
   createdAt: string = '';
   updatedAt: string = '';
   token: string = '';
+  roles: RoleEnum[]=[];
   public constructor(init?: Partial<User>) {
     Object.assign(this, init);
   }
 }
 
+export enum RoleEnum{
+  ADMIN,
+  BASIC_USER
+}
 export class Auth {
   username: string = '';
   password: string = '';

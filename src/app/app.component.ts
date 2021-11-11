@@ -9,9 +9,6 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   constructor(private router: Router) {}
   ngOnInit(): void {
-    if (localStorage.getItem('username')) {
-      // TODO: dupa rol sa faci redirecarea
-      this.router.navigateByUrl('profile/items');
-    }
+
   }
 }
