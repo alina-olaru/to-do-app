@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { SessionStore } from '../../state/auth-state/session-store';
 import { OnlineStatusType } from 'ngx-online-status';
 import { NetworkService } from 'src/app/services/network.service';
+import { TestHeaderService } from './test-header.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -27,10 +28,11 @@ export class SignInComponent implements OnInit {
     private signInService: SignInService,
     private sessionStore: SessionStore,
     private sessionQuery: SessionQuery,
-    private networkService:NetworkService
+    private networkService:NetworkService,
   ) {}
 
   ngOnInit(): void {
+
     this.networkService.networkState$.subscribe(response=>{
       this.status = response;
     })
@@ -53,6 +55,7 @@ export class SignInComponent implements OnInit {
         // }
         this.sessionStore.update((state) => ({ user: response }));
         this.router.navigateByUrl('profile/items');
+
       });
     }
   }

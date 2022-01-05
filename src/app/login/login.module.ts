@@ -31,6 +31,7 @@ const routes: Routes = [{
 
 
   ],
-  exports:[RouterModule]
+  exports:[RouterModule],
+
 })
 export class LoginModule { }

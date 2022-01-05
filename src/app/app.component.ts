@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OnlineStatusService, OnlineStatusType } from 'ngx-online-status';
+import { TestHeaderService } from './login/sign-in/test-header.service';
 import { NetworkService } from './services/network.service';
 
 @Component({
@@ -14,7 +15,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     private onlineStatusService: OnlineStatusService,
-    private networkState: NetworkService
+    private networkState: NetworkService,
+
+    private testHeaderService: TestHeaderService
   ) {
     this.onlineStatusService.status.subscribe((status: OnlineStatusType) => {
       // Retrieve Online status Type
@@ -23,5 +26,7 @@ export class AppComponent implements OnInit {
       this.networkState.updateNetworkState(this.status);
     });
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.testHeaderService.testHeader().subscribe(resp=>{});
+  }
 }

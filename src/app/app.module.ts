@@ -10,6 +10,9 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { environment } from '../environments/environment';
 import { OnlineStatusModule } from 'ngx-online-status';
+import { JwtInterceptor } from './interceptors/jwt-interceptor.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TestHeaderService } from './login/sign-in/test-header.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,14 +22,16 @@ import { OnlineStatusModule } from 'ngx-online-status';
     BrowserAnimationsModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     AkitaNgRouterStoreModule,
-    OnlineStatusModule
+    OnlineStatusModule,
+    HttpClientModule
   ],
   providers: [
     {
       provide: NG_ENTITY_SERVICE_CONFIG,
       useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' },
     },
-
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    TestHeaderService
   ],
   bootstrap: [AppComponent],
 })
