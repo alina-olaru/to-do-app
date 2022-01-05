@@ -6,6 +6,8 @@ import { Auth, SigninModel } from '../models/user';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SessionStore } from '../../state/auth-state/session-store';
+import { OnlineStatusType } from 'ngx-online-status';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,6 +15,8 @@ import { SessionStore } from '../../state/auth-state/session-store';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
+  OnlineStatusType = OnlineStatusType;
+  status: OnlineStatusType | undefined;
   signInForm = new FormGroup<ControlsOf<SigninModel>>({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
@@ -22,10 +26,15 @@ export class SignInComponent implements OnInit {
     private router: Router,
     private signInService: SignInService,
     private sessionStore: SessionStore,
-    private sessionQuery: SessionQuery
+    private sessionQuery: SessionQuery,
+    private networkService:NetworkService
   ) {}
 
   ngOnInit(): void {
+    this.networkService.networkState$.subscribe(response=>{
+      this.status = response;
+    })
+
     if (this.sessionQuery.getValue()?.user.token) {
       this.router.navigateByUrl('profile/items');
     }

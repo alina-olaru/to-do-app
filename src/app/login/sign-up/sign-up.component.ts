@@ -4,6 +4,8 @@ import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ControlsOf, FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { SignUpModel } from '../models/user';
+import { OnlineStatusType } from 'ngx-online-status';
+import { NetworkService } from '../../services/network.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,6 +13,7 @@ import { SignUpModel } from '../models/user';
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
+
   signUpForm = new FormGroup<ControlsOf<SignUpModel>>({
     username: new FormControl('', [Validators.required,
     Validators.minLength(4)]),
@@ -37,7 +40,9 @@ export class SignUpComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
   redirectToSignIn() {
     this.router.navigateByUrl('login/sign-in');
   }

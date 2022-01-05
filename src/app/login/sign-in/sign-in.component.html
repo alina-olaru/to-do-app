@@ -1,3 +1,7 @@
+<div class="status" [class.offline]="status === OnlineStatusType.OFFLINE">
+  <p *ngIf="status === OnlineStatusType.OFFLINE">Offline</p>
+  <p *ngIf="status != OnlineStatusType.OFFLINE">Online</p>
+</div>
 <div class="w-full h-full flex items-center justify-center">
   <form
     class="
