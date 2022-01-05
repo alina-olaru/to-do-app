@@ -12,6 +12,7 @@ export class SignInService {
 const x = new User();
 x.token="4";
 x.roles = [RoleEnum.BASIC_USER]
+// x.roles = [RoleEnum.ADMIN];
     return new Observable(ebs=>{
       ebs.next(x);
     })
