@@ -12,7 +12,7 @@ export class SignInService {
   signIn(authData : Auth) : Observable<User>{
 const x = new User();
 x.token="4";
-x.roles = [RoleEnum.BASIC_USER]
+x.roles = [RoleEnum.ADMIN]
 // x.roles = [RoleEnum.ADMIN];
     return new Observable(ebs=>{
       ebs.next(x);
